@@ -8,7 +8,7 @@
 				<span><%= foundBlog.created.toDateString() %></span>	
 			</div>
 			<div class="description">
-				<p><%= foundBlog.body %></p>
+				<p><%- foundBlog.body %></p>
 			</div>
 			<a class="ui blue basic button" href="/blogs/<%= foundBlog._id%>/edit">Edit</a>
 			<form id="delete" action="/blogs/<%= foundBlog._id%>?_method=DELETE" method="POST">

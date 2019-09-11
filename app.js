@@ -76,8 +76,8 @@ app.get("/blogs/new", (req, res) => {
 	//i dati neegli attributi name del form son    o passati in una struttura oggetto cosi possono essere passati direttamente al create
 		//prima di salvare i dati nel database uso sanitize per eliminare script malevoli
 app.post("/blogs", (req, res) => {
-	var parametri = req.sanitize(req.body.blog.body);
-	Blog.create(parametri, (err, newBlog) => {
+	req.body.blog.body = req.sanitize(req.body.blog.body);
+	Blog.create(req.body.blog, (err, newBlog) => {
 		if (err) {
 			  	console.log(err);
 				res.render("new");
@@ -126,6 +126,7 @@ app.get("/blogs/:id/edit", function(req, res){
 //se sucess re indirzzo alla pagina show del blog in questione 
 
 app.put("/blogs/:id", (req, res) => {
+	req.body.blog.body = req.sanitize(req.body.blog.body);
 	Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err, updatedBlog) => {
 		if(err){
 		   	res.redirect("/blogs");
